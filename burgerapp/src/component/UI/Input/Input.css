@@ -26,3 +26,8 @@
     outline: none;
     background-color: #ccc;
 }
+
+.invalid {
+    border: 1px solid orange;
+    background-color: #d3c8c7;
+}

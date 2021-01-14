@@ -3,7 +3,7 @@ import './Model.css';
 import Aux from '../../../hoc/aux1';
 import Backdrop from '../Backdrop/Backdrop';
 
-const Model = (props) => (
+const Model = (props) => ( // design the order modal
     <Aux>
         <Backdrop show={props.show} clicked={props.modelClosed}/>
         <div 
