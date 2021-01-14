@@ -22,9 +22,9 @@ class App extends Component{
     }
 
     handleIncrement = (counter) => {
-        const counters = [...this.state.counters]; // copy the entire array
+        const counters = [...this.state.counters]; // copy the entire array to obtain index
         const index = counters.indexOf(counter);
-        counters[index] = {...counter};
+        counters[index] = {...counter}; // copy the current value
         counters[index].value++;
         this.setState({ counters: counters }); // since it's the same 
         
