@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './Order.css';
+import classes from './Order.css';
 
 const order = (props) => {
 
@@ -27,7 +27,7 @@ const order = (props) => {
     });
 
     return(
-    <div className='Order'>
+    <div className={classes.Order}>
         <p>Ingredients: {ingredientOutput}</p>
         <p>Price: <strong>USD {props.price}</strong></p>
     </div>

@@ -1,15 +1,19 @@
 import React from 'react';
-import './Input.css';
+import classes from './Input.css';
 
 const input = (props) => {
 
     let inputElement = null;
-    const inputClasses = []
+    const inputClasses = [classes.InputElement];
+
+    if(props.invalid && props.shouldValidate && props.touched) { // shouldValite will prevent dropdown be part of validate
+        inputClasses.push(classes.Invalid);
+    }
     
     switch(props.elementType){
         case ('input'):
             inputElement = <input 
-                className="InputElement" 
+                className={inputClasses.join(' ')} // for css styling
                 {...props.elementConfig} 
                 value={props.value}
                 onChange={props.changed}/>; // the props will receive other attributes
@@ -17,11 +21,11 @@ const input = (props) => {
         case ('select'):
             inputElement = (
             <select
-                className="InputElement"  
+                className={inputClasses.join(' ')}
                 value={props.value}
                 onChange={props.changed}>
                 {props.elementConfig.options.map(option => (
-                    <option key={option.value} value={option.value}>{option.displayValue}</option>
+                    <option key={option.value} value={option.value}>{option.displayValue}</option> // refer to the options in contact data
                 ))
                 }
             </select>
@@ -30,14 +34,14 @@ const input = (props) => {
 
         default:
             inputElement = <input 
-                className="InputElement"  
+                className={inputClasses.join(' ')}
                 {...props.elementConfig} 
                 value={props.value} 
                 onChange={props.changed}/>;
     }
     
     return(
-        <div className='Input'>
+        <div className={classes.Input}>
             <label className='Label'>{props.label}</label>
             {inputElement}
         </div>

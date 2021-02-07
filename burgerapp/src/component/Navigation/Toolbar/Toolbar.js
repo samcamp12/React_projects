@@ -1,13 +1,13 @@
 import React from 'react';
-import './Toolbar.css';
+import classes from './Toolbar.css';
 //import Logo from '../../Logo/Logo';
 import NavigationItems from '../NavigationItems/NavigationItems';
 
 const toolbar = (props) => (
-    <header className='Toolbar'>
+    <header className={classes.Toolbar}>
         <div>MENU</div>
         <nav>
-            <NavigationItems />
+            <NavigationItems isAuthenticated={props.isAuth}/>
         </nav>
     </header>
 );

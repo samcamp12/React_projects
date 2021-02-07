@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Button from '../../../component/UI/Button/Button';
 import Spinner from '../../../component/UI/Spinner/Spinner';
-import './ContactData.css';
+import classes from './ContactData.css';
 import axios from '../../../axios-orders';
 import Input from '../../../component/UI/Input/Input';
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler'
@@ -21,7 +21,8 @@ class ContactData extends Component {
                     validation: {
                         required: true
                     },
-                    valid: false
+                    valid: false,
+                    touched: false // stop showing validation when first open the page
                 },
                 street: {
                     elementType: 'input',
@@ -33,7 +34,8 @@ class ContactData extends Component {
                     validation: {
                         required: true
                     },
-                    valid: false
+                    valid: false,
+                    touched: false
                 },
                 zipCode: {
                     elementType: 'input',
@@ -45,9 +47,11 @@ class ContactData extends Component {
                     validation: {
                         required: true,
                         minLength: 5,
-                        maxLength: 5
+                        maxLength: 5,
+                        isNumeric: true
                     },
-                    valid: false
+                    valid: false,
+                    touched: false
                 },
                 country: {
                     elementType: 'input',
@@ -59,7 +63,8 @@ class ContactData extends Component {
                     validation: {
                         required: true
                     },
-                    valid: false
+                    valid: false,
+                    touched: false
                 },
                 emails: {
                     elementType: 'input',
@@ -71,7 +76,8 @@ class ContactData extends Component {
                     validation: {
                         required: true
                     },
-                    valid: false
+                    valid: false,
+                    touched: false
                 },
                 deliveryMethod: {
                     elementType: 'select',
@@ -82,7 +88,7 @@ class ContactData extends Component {
                         ]
                     },
                     value: 'fastest',
-                    validation: {},
+                    validation: {}, // satisfiy the rules argument in checkValidation
                     valid: true
                 }
         },
@@ -90,7 +96,8 @@ class ContactData extends Component {
         formIsValid: false
     
     }
-
+    
+    // pass the orderForm to  
     orderHandler = (event) => {
         event.preventDefault(); // prevent the form auto reload
         const formData = {};
@@ -100,16 +107,17 @@ class ContactData extends Component {
         const order = {
             ingredients: this.props.ings,
             price: this.props.price,
-            orderData: formData
+            orderData: formData,
+            userId: this.props.userId
             
         }
-        this.props.onOrderBurger(order); // axios request
+        this.props.onOrderBurger(order, this.props.token); // axios request
     }
 
-    checkValidation = (value, rules) => {
+    checkValidation = (value, rules) => { //rules is the validation in states
         
-        let isValid = false;
-        
+        let isValid = true;
+
         if(rules.required){
             isValid = value.trim() !== '' && isValid;
         }
@@ -121,8 +129,16 @@ class ContactData extends Component {
         if(rules.maxLength) {
             isValid = value.length <= rules.maxLength && isValid;
         }
+
+        if (rules.isNumeric) {
+            const pattern = /^\d+$/;
+            isValid = pattern.test(value) && isValid
+        }
+
+        return isValid;
     }
 
+    // handle the user input i.e., change the value of orderform
     inputChangedHandler = (event, inputidentifier) => { // inputidentifier is the formElement id -> key of orderform
         const updatedOrderForm = {
             ...this.state.orderForm
@@ -135,7 +151,7 @@ class ContactData extends Component {
         updatedFormElement.touched = true;
         updatedOrderForm[inputidentifier] = updatedFormElement;
 
-        let formIsValid = true;
+        let formIsValid = true; // check if the entire form is valid (not just one!)
         for (let inputIdentifier in updatedOrderForm) {
             formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid;
         }
@@ -161,7 +177,7 @@ class ContactData extends Component {
                         invalid={!formElement.config.valid}
                         shouldValidate={formElement.config.validation}
                         touched={formElement.config.touched}
-                        changed={(event) => this.inputChangedHandler(event, formElement.id)}/>
+                        changed={(event) => this.inputChangedHandler(event, formElement.id)}/> // event is creacted by react automaticly
                 ))}
                 <Button 
                 btnType="Success" disabled={!this.state.formIsValid}>ORDER</Button>
@@ -171,7 +187,7 @@ class ContactData extends Component {
             form = <Spinner />;
         }
         return (
-            <div className='ContactData'>
+            <div className={classes.ContactData}>
                 <h4>Enter Your Contact Data</h4>
                {form}
             </div>
@@ -183,13 +199,15 @@ const mapStateToProps = state => {
     return {
         ings: state.burgerBuilder.ingredients,
         price: state.burgerBuilder.totalPrice,
-        loading: state.order.loading
+        loading: state.order.loading,
+        token: state.auth.token,
+        userId: state.auth.userId
     }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onOrderBurger: (orderData) => dispatch(actions.purchaseBurger(orderData))
+        onOrderBurger: (orderData, token) => dispatch(actions.purchaseBurger(orderData, token))
     };
 };
 

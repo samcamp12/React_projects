@@ -3,15 +3,16 @@ import { updateObject } from '../utility';
 
 const initialState = {
     orders: [],
-    loading: false,
-    purchased: false
+    loading: false, // loading will help displaying the spinner
+    purchased: false, // redirect the page after user checked out.
+    userId: null
 };
 
 const purchaseInit = ( state, action ) => {
-    return updateObject( state, { purchased: false } );
+    return updateObject( state, { purchased: false } ); // set the purchased to be false at start
 };
 
-const purchaseBurgerStart = ( state, action ) => {
+const purchaseBurgerStart = ( state, action ) => { 
     return updateObject( state, { loading: false } );
 };
 

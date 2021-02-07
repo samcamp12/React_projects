@@ -1,9 +1,9 @@
 import React from 'react';
-import './Backdrop.css'
+import classes from './Backdrop.css'
 
 const backdrop = (props) => (
     props.show ? <div 
-    className='Backdrop'
+    className={classes.Backdrop}
     onClick={props.clicked}></div> : null
 ); // functional component uses brackets
 
