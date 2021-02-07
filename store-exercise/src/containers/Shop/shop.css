@@ -1,0 +1,38 @@
+.brief {
+    text-align: left;  
+    margin-left: 30px;
+    padding-left: 10px;
+}
+
+.briefItems {
+    padding: 10px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 10px 0;
+    margin: auto;
+}
+.rowItem {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-end;
+    width: 800px;
+}
+
+.columnItem {
+    display: flex;
+    flex-direction: column;
+}
+
+.indexHeader {
+    width: 150px;
+}
+
+.DescriptionHeader {
+    width: 350px;
+}

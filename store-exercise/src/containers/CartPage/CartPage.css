@@ -1,0 +1,19 @@
+.CartPage {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items:flex-start;
+    margin: auto;
+    padding: 10px 0;
+}
+.items {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 600px;
+
+}
+
+.Header {
+    width: 150px;
+}

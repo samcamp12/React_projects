@@ -1,0 +1,17 @@
+.Products {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-end;
+    height: 50px;
+    width: 800px;
+}
+
+.item {
+    width: 150px;
+}
+.DescriptionItem {
+    width: 350px;
+}
+
