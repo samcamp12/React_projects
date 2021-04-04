@@ -1,0 +1,17 @@
+.Menu {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    align-items: flex-start;
+    width: 950px;
+    padding: 5px;
+}
+
+.MenuName {
+    width: 250px;
+    margin-left: 0;
+}
+
+.MenuDescription {
+    width: 700px;
+}

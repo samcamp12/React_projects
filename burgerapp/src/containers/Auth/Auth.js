@@ -95,10 +95,10 @@ class Auth extends Component {
 
     submitHandler = (event) => {
         event.preventDefault();
-        this.props.onAuth( 
+        this.props.onAuth( // pass sign-up data to dispatch actions
             this.state.controls.email.value, 
             this.state.controls.password.value,
-            this.state.isSignup); // pass data to dispatch
+            this.state.isSignup); 
     }
 
     switchAuthModeHandler = () => {

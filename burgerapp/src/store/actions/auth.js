@@ -39,7 +39,7 @@ export const checkAuthTimeout = (expirationTime) => { // set the experiation tim
     };
 }
 
-export const auth = (email, password, isSignup) => {
+export const auth = (email, password, isSignup) => { // data dispatched from containers/Auth.js
     return dispatch => {
         dispatch(authStart());
         const authData = { // receive the posted data

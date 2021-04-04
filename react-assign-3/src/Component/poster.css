@@ -1,0 +1,20 @@
+.posterContainer {
+    text-align: center;
+    margin: 10px;
+    padding: 10px;
+}
+
+
+.title {
+    margin: 5px;
+    margin-top: 0px;
+}
+
+.button {
+    visibility: hidden;
+}
+
+
+.posterContainer:hover  button {
+    visibility: visible;
+}
